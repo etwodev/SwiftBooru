@@ -7,16 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44D8263D29C27E6F00718396 /* SwiftBooruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D8263C29C27E6F00718396 /* SwiftBooruApp.swift */; };
-		44D8263F29C27E6F00718396 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D8263E29C27E6F00718396 /* ContentView.swift */; };
+		445EA7BE29C27F5200667D13 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7BD29C27F5200667D13 /* CacheManager.swift */; };
+		445EA7C029C27F5B00667D13 /* TableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7BF29C27F5B00667D13 /* TableManager.swift */; };
+		445EA7C329C27FE200667D13 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7C229C27FE200667D13 /* NetworkHandler.swift */; };
+		445EA7E029C310A100667D13 /* DanbooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7DF29C310A100667D13 /* DanbooruTag.swift */; };
+		445EA7E229C310B900667D13 /* SafebooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E129C310B900667D13 /* SafebooruTag.swift */; };
+		445EA7E429C310D400667D13 /* SafebooruPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E329C310D400667D13 /* SafebooruPost.swift */; };
+		445EA7E629C310E600667D13 /* GelbooruPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E529C310E600667D13 /* GelbooruPost.swift */; };
+		445EA7E829C310F800667D13 /* GelbooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E729C310F800667D13 /* GelbooruTag.swift */; };
+		445EA7EA29C3112400667D13 /* GlobalBooruTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E929C3112400667D13 /* GlobalBooruTypes.swift */; };
+		445EA7EC29C312AA00667D13 /* SwiftBooruError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7EB29C312AA00667D13 /* SwiftBooruError.swift */; };
 		44D8264129C27E7000718396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D8264029C27E7000718396 /* Assets.xcassets */; };
 		44D8264429C27E7000718396 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D8264329C27E7000718396 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		445EA7BD29C27F5200667D13 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		445EA7BF29C27F5B00667D13 /* TableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableManager.swift; sourceTree = "<group>"; };
+		445EA7C229C27FE200667D13 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
+		445EA7DF29C310A100667D13 /* DanbooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DanbooruTag.swift; sourceTree = "<group>"; };
+		445EA7E129C310B900667D13 /* SafebooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafebooruTag.swift; sourceTree = "<group>"; };
+		445EA7E329C310D400667D13 /* SafebooruPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafebooruPost.swift; sourceTree = "<group>"; };
+		445EA7E529C310E600667D13 /* GelbooruPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GelbooruPost.swift; sourceTree = "<group>"; };
+		445EA7E729C310F800667D13 /* GelbooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GelbooruTag.swift; sourceTree = "<group>"; };
+		445EA7E929C3112400667D13 /* GlobalBooruTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalBooruTypes.swift; sourceTree = "<group>"; };
+		445EA7EB29C312AA00667D13 /* SwiftBooruError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBooruError.swift; sourceTree = "<group>"; };
 		44D8263929C27E6F00718396 /* SwiftBooru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftBooru.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		44D8263C29C27E6F00718396 /* SwiftBooruApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBooruApp.swift; sourceTree = "<group>"; };
-		44D8263E29C27E6F00718396 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		44D8264029C27E7000718396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44D8264329C27E7000718396 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44D8264529C27E7000718396 /* SwiftBooru.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftBooru.entitlements; sourceTree = "<group>"; };
@@ -33,6 +49,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		445EA7BC29C27F2C00667D13 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				445EA7BD29C27F5200667D13 /* CacheManager.swift */,
+				445EA7BF29C27F5B00667D13 /* TableManager.swift */,
+				445EA7C229C27FE200667D13 /* NetworkHandler.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		445EA7DB29C30E5100667D13 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				445EA7EB29C312AA00667D13 /* SwiftBooruError.swift */,
+				445EA7E929C3112400667D13 /* GlobalBooruTypes.swift */,
+				445EA7DE29C30E8300667D13 /* Danbooru */,
+				445EA7DD29C30E7800667D13 /* Safebooru */,
+				445EA7DC29C30E6A00667D13 /* Gelbooru */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		445EA7DC29C30E6A00667D13 /* Gelbooru */ = {
+			isa = PBXGroup;
+			children = (
+				445EA7E529C310E600667D13 /* GelbooruPost.swift */,
+				445EA7E729C310F800667D13 /* GelbooruTag.swift */,
+			);
+			path = Gelbooru;
+			sourceTree = "<group>";
+		};
+		445EA7DD29C30E7800667D13 /* Safebooru */ = {
+			isa = PBXGroup;
+			children = (
+				445EA7E129C310B900667D13 /* SafebooruTag.swift */,
+				445EA7E329C310D400667D13 /* SafebooruPost.swift */,
+			);
+			path = Safebooru;
+			sourceTree = "<group>";
+		};
+		445EA7DE29C30E8300667D13 /* Danbooru */ = {
+			isa = PBXGroup;
+			children = (
+				445EA7DF29C310A100667D13 /* DanbooruTag.swift */,
+			);
+			path = Danbooru;
+			sourceTree = "<group>";
+		};
+		445EA7ED29C312D500667D13 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		44D8263029C27E6F00718396 = {
 			isa = PBXGroup;
 			children = (
@@ -52,9 +123,10 @@
 		44D8263B29C27E6F00718396 /* SwiftBooru */ = {
 			isa = PBXGroup;
 			children = (
-				44D8263C29C27E6F00718396 /* SwiftBooruApp.swift */,
-				44D8263E29C27E6F00718396 /* ContentView.swift */,
+				445EA7ED29C312D500667D13 /* Views */,
 				44D8264029C27E7000718396 /* Assets.xcassets */,
+				445EA7DB29C30E5100667D13 /* Model */,
+				445EA7BC29C27F2C00667D13 /* Utils */,
 				44D8264529C27E7000718396 /* SwiftBooru.entitlements */,
 				44D8264229C27E7000718396 /* Preview Content */,
 			);
@@ -101,6 +173,7 @@
 				TargetAttributes = {
 					44D8263829C27E6F00718396 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -139,8 +212,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44D8263F29C27E6F00718396 /* ContentView.swift in Sources */,
-				44D8263D29C27E6F00718396 /* SwiftBooruApp.swift in Sources */,
+				445EA7EC29C312AA00667D13 /* SwiftBooruError.swift in Sources */,
+				445EA7C029C27F5B00667D13 /* TableManager.swift in Sources */,
+				445EA7BE29C27F5200667D13 /* CacheManager.swift in Sources */,
+				445EA7E229C310B900667D13 /* SafebooruTag.swift in Sources */,
+				445EA7E629C310E600667D13 /* GelbooruPost.swift in Sources */,
+				445EA7E029C310A100667D13 /* DanbooruTag.swift in Sources */,
+				445EA7EA29C3112400667D13 /* GlobalBooruTypes.swift in Sources */,
+				445EA7E429C310D400667D13 /* SafebooruPost.swift in Sources */,
+				445EA7C329C27FE200667D13 /* NetworkHandler.swift in Sources */,
+				445EA7E829C310F800667D13 /* GelbooruTag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +346,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SwiftBooru/SwiftBooru.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -281,6 +363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ayakoone.SwiftBooru;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -290,6 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SwiftBooru/SwiftBooru.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
