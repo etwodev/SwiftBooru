@@ -1,39 +1,54 @@
 import Foundation
 
-class DatabaseManager {
-    let fileManager = FileManager.default
-    let encoder = JSONEncoder()
-    let decoder = JSONDecoder()
+class DictionaryFileManager<T: Codable & Identifiable> {
+    private let fileManager = FileManager.default
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
 
-    init() {
-        createDirectoryIfNeeded()
+    private let documentsDirectory: URL
+    private let unsafeChars = CharacterSet(charactersIn: "\"#%/:<>?\\^{|}")
+    
+    let tableIdentifier: String
+    
+    init(identifier: String) {
+        documentsDirectory = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        tableIdentifier = identifier.trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: unsafeChars)
+            .joined(separator: "")
     }
     
-    func save<T: Codable>(_ data: T, to fileName: String) throws {
-        let url = try makeFileURL(with: fileName)
-        let encodedData = try encoder.encode(data)
-        try encodedData.write(to: url)
-    }
-
-    func load<T: Codable>(from fileName: String) throws -> T {
-        let url = try makeFileURL(with: fileName)
-        let data = try Data(contentsOf: url)
-        let decodedData = try decoder.decode(T.self, from: data)
-        return decodedData
+    private func fileName(for structValue: T) -> String {
+        let structName = String(describing: type(of: structValue))
+        return "\(structName).json"
     }
     
-    private func createDirectoryIfNeeded() {
-        let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let folderUrl = url.appendingPathComponent("Database", isDirectory: true)
-        if !fileManager.fileExists(atPath: folderUrl.path) {
-            try? fileManager.createDirectory(at: folderUrl, withIntermediateDirectories: true, attributes: nil)
+    private func filePath(for structValue: T) -> URL {
+        let fileName = self.fileName(for: structValue)
+        return documentsDirectory.appendingPathComponent(fileName)
+    }
+    
+    func readDictionary(for structValue: T) throws -> [String: T]? {
+        let filePath = self.filePath(for: structValue)
+        
+        guard fileManager.fileExists(atPath: filePath.path) else {
+            return nil
         }
+        
+        let data = try Data(contentsOf: filePath)
+        return try decoder.decode([String: T].self, from: data)
     }
-
-    private func makeFileURL(with fileName: String) throws -> URL {
-        let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let folderUrl = url.appendingPathComponent("Database", isDirectory: true)
-        let fileUrl = folderUrl.appendingPathComponent(fileName)
-        return fileUrl
+    
+    func writeDictionary(_ dictionary: [String: T], for structValue: T) throws {
+        let filePath = self.filePath(for: structValue)
+        let data = try encoder.encode(dictionary)
+        
+        try fileManager.createDirectory(at: documentsDirectory, withIntermediateDirectories: true, attributes: nil)
+        fileManager.createFile(atPath: filePath.path, contents: data, attributes: nil)
+    }
+    
+    func addValue(_ value: T, to structValue: T) throws {
+        var dictionary = try readDictionary(for: structValue) ?? [String: T]()
+        dictionary[structValue.id as! String] = value
+        try writeDictionary(dictionary, for: structValue)
     }
 }
