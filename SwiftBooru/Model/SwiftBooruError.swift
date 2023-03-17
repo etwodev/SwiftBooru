@@ -13,10 +13,10 @@ enum SwiftBooruError: Error {
     case missingCacheFile
 }
 
-extension PlayCoverError: LocalizedError {
+extension SwiftBooruError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .missingBookmarkCache:
+        case .missingCacheFile:
             return NSLocalizedString("warning.missingCacheFile", comment: "")
         }
     }

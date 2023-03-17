@@ -30,15 +30,15 @@ struct GelbooruAttribute: Codable {
 }
 
 struct GelbooruPost: Codable {
-    let id: Int
+    let pid: Int
     let createdAt: String
     let score: Int
-    let width: Int
-    let height: Int
+    let fileWidth: Int
+    let fileHeight: Int
     let md5: String
     let directory: String
     let image: String
-    let rating: BooruRating
+    let post_rating: Rating
     let source: String
     let change: Int
     let owner: String
@@ -47,7 +47,7 @@ struct GelbooruPost: Codable {
     let sample: Int
     let previewHeight: Int
     let previewWidth: Int
-    let tags: String
+    let post_tags: String
     let title: String
     let hasNotes: String
     let hasComments: String
@@ -56,20 +56,20 @@ struct GelbooruPost: Codable {
     let sampleURL: String
     let sampleHeight: Int
     let sampleWidth: Int
-    let status: Status
+    let status: String
     let postLocked: Int
     let hasChildren: String
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case pid = "id"
         case createdAt = "created_at"
         case score = "score"
-        case width = "width"
-        case height = "height"
+        case fileWidth = "width"
+        case fileHeight = "height"
         case md5 = "md5"
         case directory = "directory"
         case image = "image"
-        case rating = "rating"
+        case post_rating = "rating"
         case source = "source"
         case change = "change"
         case owner = "owner"
@@ -78,7 +78,7 @@ struct GelbooruPost: Codable {
         case sample = "sample"
         case previewHeight = "preview_height"
         case previewWidth = "preview_width"
-        case tags = "tags"
+        case post_tags = "tags"
         case title = "title"
         case hasNotes = "has_notes"
         case hasComments = "has_comments"
@@ -93,8 +93,14 @@ struct GelbooruPost: Codable {
     }
 }
 
-enum Status: String, Codable {
-    case active = "active"
+extension GelbooruPost: ImageFormat {
+    var file: String { return fileURL }
+    var preview: String { return previewURL }
+    var tags: String { return post_tags }
+    var height: Int { return fileHeight  }
+    var width: Int { return fileWidth }
+    var rating: Rating { return post_rating }
+    var id: String { return md5 + String(pid) }
 }
 
 typealias GelbooruPosts = [GelbooruPost]
