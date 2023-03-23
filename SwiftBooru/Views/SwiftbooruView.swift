@@ -7,18 +7,22 @@
 
 import Foundation
 import SwiftUI
+import URLImage
+import URLImageStore
 
 @main
 struct SwiftbooruAppController: App {
-    
     var body: some Scene {
         WindowGroup {
             SwiftbooruCanvasView(
-                viewSwitch: [
+                name: "Swiftbooru",
+                description: "To get started, browse images in the discovery tab.",
+                items: [
                     "house": AnyView(Text("Test A")),
                     "heart": AnyView(BooksmarksView()),
-                    "magnifyingglass": AnyView(Text("Test C"))
+                    "magnifyingglass": AnyView(SearchView())
                 ])
+                .environment(\.urlImageService, URLImageService(fileStore: nil, inMemoryStore: URLImageInMemoryStore()))
         }
     }
     
@@ -26,13 +30,31 @@ struct SwiftbooruAppController: App {
 
 struct SwiftbooruCanvasView: View {
     @State var selectedIcon: String = ""
+    @State var showPopup: Bool = false
     let viewSwitch: [String:AnyView]
+    private let projectName: String
+    private let projectDesc: String
+    
+    init(name: String, description: String, items: [String:AnyView]) {
+        self.viewSwitch = items
+        self.projectName = name
+        self.projectDesc = description
+    }
     
     var body: some View {
         viewSwitch[selectedIcon]
         .toolbar() {
             ForEach(Array(self.viewSwitch.keys).sorted(by: >), id: \.self) { icon in
                 SwiftbooruSwitcher(icon: icon, selectedIcon: $selectedIcon)
+            }
+        }
+        .sheet(isPresented: $showPopup) {
+            PopupView(projectName: self.projectName, projectDesc: self.projectDesc)
+        }
+        .onAppear {
+            if !(UserDefaults.standard.bool(forKey: "hasLaunchedBefore")) {
+                UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+                showPopup = true
             }
         }
     }
@@ -64,4 +86,37 @@ struct SwiftbooruSwitcher: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
+}
+
+struct PopupView: View {
+   @Environment(\.presentationMode) var presentationMode
+
+   let projectName: String
+   let projectDesc: String
+   
+   var body: some View {
+       VStack {
+           Text("Welcome to \(projectName)")
+               .font(.title)
+               .padding(.top, 10)
+           Text(projectDesc)
+               .font(.subheadline)
+           Spacer()
+           Button("Close") {
+               presentationMode.wrappedValue.dismiss()
+           }
+           .buttonStyle(.borderless)
+       }
+       .background(
+           Image("moonlight")
+               .resizable()
+               .scaledToFill()
+               .offset(y:80)
+       )
+       .padding(.horizontal, 20)
+       .padding(.vertical, 20)
+       .frame(width: 400, height: 200)
+       .cornerRadius(10)
+       .shadow(radius: 10)
+   }
 }

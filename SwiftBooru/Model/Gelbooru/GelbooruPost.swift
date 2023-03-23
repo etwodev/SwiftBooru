@@ -93,7 +93,7 @@ struct GelbooruPost: Codable {
     }
 }
 
-extension GelbooruPost: ImageFormat {
+extension GelbooruPost: PostFormat, Hashable {
     var file: String { return fileURL }
     var preview: String { return previewURL }
     var tags: String { return post_tags }

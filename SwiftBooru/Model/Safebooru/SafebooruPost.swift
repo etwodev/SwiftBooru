@@ -43,9 +43,9 @@ struct SafebooruPost: Codable {
     }
 }
 
-extension SafebooruPost: ImageFormat {
+extension SafebooruPost: PostFormat, Hashable {
     var file: String { return "https://safebooru.org/images/\(directory)/\(image)" }
-    var preview: String { return "https://safebooru.org/samples/\(directory)/sample_\(image)" }
+    var preview: String { return "https://safebooru.org/thumbnails/\(directory)/thumbnail_\(URL(fileURLWithPath: image).deletingPathExtension().lastPathComponent).jpg" }
     var tags: String { return post_tags }
     var height: Int { return fileHeight  }
     var width: Int { return fileWidth }

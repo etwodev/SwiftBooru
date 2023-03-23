@@ -23,7 +23,7 @@ struct GelbooruTag: Codable {
     }
 }
 
-extension GelbooruTag: Identifiable {
+extension GelbooruTag: Identifiable, TagFormat {
     var id: String { return value }
 }
 

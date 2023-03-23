@@ -16,9 +16,16 @@
 		445EA7E829C310F800667D13 /* GelbooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E729C310F800667D13 /* GelbooruTag.swift */; };
 		445EA7EA29C3112400667D13 /* GlobalBooruTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7E929C3112400667D13 /* GlobalBooruTypes.swift */; };
 		445EA7EC29C312AA00667D13 /* SwiftBooruError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7EB29C312AA00667D13 /* SwiftBooruError.swift */; };
-		44A9EEA329C39382003075EC /* SwiftBooruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A9EEA229C39382003075EC /* SwiftBooruApp.swift */; };
+		446B2D2D29C7E37300850070 /* SwiftbooruView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B2D2C29C7E37300850070 /* SwiftbooruView.swift */; };
+		446B2D2F29C7E78E00850070 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B2D2E29C7E78E00850070 /* Extensions.swift */; };
+		44BDDD7829CB04AD005955FF /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BDDD7729CB04AD005955FF /* ImageView.swift */; };
 		44D8264129C27E7000718396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D8264029C27E7000718396 /* Assets.xcassets */; };
 		44D8264429C27E7000718396 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D8264329C27E7000718396 /* Preview Assets.xcassets */; };
+		44F0538D29C9CDD400A53E91 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F0538C29C9CDD400A53E91 /* SearchView.swift */; };
+		44FD59C729C54C190045080C /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FD59C629C54C190045080C /* BookmarksView.swift */; };
+		44FD59C929C557AD0045080C /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FD59C829C557AD0045080C /* BookmarkManager.swift */; };
+		44FD59D029C57D7D0045080C /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 44FD59CF29C57D7D0045080C /* URLImage */; };
+		44FD59D229C57D7D0045080C /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = 44FD59D129C57D7D0045080C /* URLImageStore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,11 +38,16 @@
 		445EA7E729C310F800667D13 /* GelbooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GelbooruTag.swift; sourceTree = "<group>"; };
 		445EA7E929C3112400667D13 /* GlobalBooruTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalBooruTypes.swift; sourceTree = "<group>"; };
 		445EA7EB29C312AA00667D13 /* SwiftBooruError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBooruError.swift; sourceTree = "<group>"; };
-		44A9EEA229C39382003075EC /* SwiftBooruApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBooruApp.swift; sourceTree = "<group>"; };
+		446B2D2C29C7E37300850070 /* SwiftbooruView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftbooruView.swift; sourceTree = "<group>"; };
+		446B2D2E29C7E78E00850070 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		44BDDD7729CB04AD005955FF /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		44D8263929C27E6F00718396 /* SwiftBooru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftBooru.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44D8264029C27E7000718396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44D8264329C27E7000718396 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44D8264529C27E7000718396 /* SwiftBooru.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftBooru.entitlements; sourceTree = "<group>"; };
+		44F0538C29C9CDD400A53E91 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		44FD59C629C54C190045080C /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
+		44FD59C829C557AD0045080C /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FD59D229C57D7D0045080C /* URLImageStore in Frameworks */,
+				44FD59D029C57D7D0045080C /* URLImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				445EA7BD29C27F5200667D13 /* CacheManager.swift */,
+				446B2D2E29C7E78E00850070 /* Extensions.swift */,
+				44FD59C829C557AD0045080C /* BookmarkManager.swift */,
 				445EA7BF29C27F5B00667D13 /* TableManager.swift */,
 				445EA7C229C27FE200667D13 /* NetworkHandler.swift */,
 			);
@@ -91,6 +107,10 @@
 		445EA7ED29C312D500667D13 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				44FD59C629C54C190045080C /* BookmarksView.swift */,
+				446B2D2C29C7E37300850070 /* SwiftbooruView.swift */,
+				44F0538C29C9CDD400A53E91 /* SearchView.swift */,
+				44BDDD7729CB04AD005955FF /* ImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,7 +134,6 @@
 		44D8263B29C27E6F00718396 /* SwiftBooru */ = {
 			isa = PBXGroup;
 			children = (
-				44A9EEA229C39382003075EC /* SwiftBooruApp.swift */,
 				445EA7ED29C312D500667D13 /* Views */,
 				44D8264029C27E7000718396 /* Assets.xcassets */,
 				445EA7DB29C30E5100667D13 /* Model */,
@@ -149,6 +168,10 @@
 			dependencies = (
 			);
 			name = SwiftBooru;
+			packageProductDependencies = (
+				44FD59CF29C57D7D0045080C /* URLImage */,
+				44FD59D129C57D7D0045080C /* URLImageStore */,
+			);
 			productName = SwiftBooru;
 			productReference = 44D8263929C27E6F00718396 /* SwiftBooru.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +201,9 @@
 				Base,
 			);
 			mainGroup = 44D8263029C27E6F00718396;
+			packageReferences = (
+				44FD59CE29C57D7D0045080C /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = 44D8263A29C27E6F00718396 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -205,13 +231,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				445EA7EC29C312AA00667D13 /* SwiftBooruError.swift in Sources */,
+				44FD59C729C54C190045080C /* BookmarksView.swift in Sources */,
 				445EA7C029C27F5B00667D13 /* TableManager.swift in Sources */,
+				446B2D2D29C7E37300850070 /* SwiftbooruView.swift in Sources */,
+				44BDDD7829CB04AD005955FF /* ImageView.swift in Sources */,
 				445EA7BE29C27F5200667D13 /* CacheManager.swift in Sources */,
 				445EA7E229C310B900667D13 /* SafebooruTag.swift in Sources */,
+				44FD59C929C557AD0045080C /* BookmarkManager.swift in Sources */,
 				445EA7E629C310E600667D13 /* GelbooruPost.swift in Sources */,
 				445EA7EA29C3112400667D13 /* GlobalBooruTypes.swift in Sources */,
+				44F0538D29C9CDD400A53E91 /* SearchView.swift in Sources */,
 				445EA7E429C310D400667D13 /* SafebooruPost.swift in Sources */,
-				44A9EEA329C39382003075EC /* SwiftBooruApp.swift in Sources */,
+				446B2D2F29C7E78E00850070 /* Extensions.swift in Sources */,
 				445EA7C329C27FE200667D13 /* NetworkHandler.swift in Sources */,
 				445EA7E829C310F800667D13 /* GelbooruTag.swift in Sources */,
 			);
@@ -408,6 +439,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		44FD59CE29C57D7D0045080C /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		44FD59CF29C57D7D0045080C /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44FD59CE29C57D7D0045080C /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+		44FD59D129C57D7D0045080C /* URLImageStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44FD59CE29C57D7D0045080C /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImageStore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44D8263129C27E6F00718396 /* Project object */;
 }

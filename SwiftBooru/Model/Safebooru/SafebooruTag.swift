@@ -17,7 +17,7 @@ struct SafebooruTag: Codable {
     }
 }
 
-extension SafebooruTag: Identifiable {
+extension SafebooruTag: Identifiable, TagFormat {
     var id: String { return value }
 }
 
