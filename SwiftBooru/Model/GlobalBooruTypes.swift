@@ -32,6 +32,7 @@ protocol PostFormat: Codable, Identifiable {
     var width: Int { get }
     var rating: Rating { get }
     var id: String { get }
+    var image: String { get }
     
     func getType() -> ImageType
     func getTags() -> [String]
@@ -134,6 +135,7 @@ struct BooruPost: Codable, Identifiable, PostFormat {
     let tagList: [String]
     let type: ImageType
     let id: String
+    let image: String
     
     init<T: PostFormat>(post: T) {
         self.file = post.file
@@ -145,6 +147,7 @@ struct BooruPost: Codable, Identifiable, PostFormat {
         self.rating = post.rating
         self.type = post.getType()
         self.id = post.id
+        self.image = post.image
     }
 }
 

@@ -37,7 +37,7 @@ struct GelbooruPost: Codable {
     let fileHeight: Int
     let md5: String
     let directory: String
-    let image: String
+    let imagepath: String
     let post_rating: Rating
     let source: String
     let change: Int
@@ -68,7 +68,7 @@ struct GelbooruPost: Codable {
         case fileHeight = "height"
         case md5 = "md5"
         case directory = "directory"
-        case image = "image"
+        case imagepath = "image"
         case post_rating = "rating"
         case source = "source"
         case change = "change"
@@ -101,6 +101,7 @@ extension GelbooruPost: PostFormat, Hashable {
     var width: Int { return fileWidth }
     var rating: Rating { return post_rating }
     var id: String { return md5 + String(pid) }
+    var image: String { return imagepath }
 }
 
 typealias GelbooruPosts = [GelbooruPost]

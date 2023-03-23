@@ -16,6 +16,7 @@ struct SearchView: View {
     @State private var suggestedTokens: [BooruTag] = []
     @State private var currentImage: BooruPost? = nil
     @State private var isShowingImage: Bool = false
+    @State private var isShowingData: Bool = false
     @State private var searchText: String = ""
     @State private var currentSearch: String = ""
     @State private var currentPage: Int = 0
@@ -97,10 +98,24 @@ struct SearchView: View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridSpacing), count: itemsPerRow), spacing: gridSpacing) {
                 ForEach(searchResult) { result in
-                    PostView(post: result)
+                    PostView(post: result, isShowingTag: $isShowingData, currentPost: $currentImage)
+                        .onTapGesture {
+                             currentImage = result
+                             isShowingImage = true
+                         }
                 }
             }
             .padding(10)
+        }
+        .onAppear {
+            if let searchCacheData: [BooruPost] = CacheManager.shared.getObject(forKey: "searchData"), let searchCacheParameters: String = CacheManager.shared.getObject(forKey: "searchParameters") {
+                searchResult = searchCacheData
+                currentSearch = searchCacheParameters
+            }
+        }
+        .onDisappear {
+            CacheManager.shared.save(searchResult, forKey: "searchData", expiry: 3600)
+            CacheManager.shared.save(currentSearch, forKey: "searchParameters", expiry: 3600)
         }
         .searchable(text: $searchText, tokens: $currentTokens, suggestedTokens: $suggestedTokens) { token in
             Text(token.id)
@@ -117,6 +132,33 @@ struct SearchView: View {
                 Toggler(info: "NSFW", isEnabled: $isNSFWEnabled)
             }
         }
+        .overlay(
+            ZStack {
+                if isShowingImage, let currentImage = currentImage {
+                    Color.overlayColor
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            isShowingImage = false
+                        }
+                    VStack {
+                        currentImage.getFile()
+                            .padding(30)
+                    }
+                } else {
+                    if isShowingData, let currentImage = currentImage {
+                        Color.overlayColor
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                isShowingData = false
+                            }
+                        VStack {
+                            Text(currentImage.tags)
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        )
     }
 }
 

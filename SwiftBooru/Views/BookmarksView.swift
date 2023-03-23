@@ -87,6 +87,9 @@ struct TagButton: View {
 struct DetailBookmarkView: View {
     @Binding var currentPosts: [BooruPost]
     @Binding var selectedTags: [String]
+    @State private var currentImage: BooruPost? = nil
+    @State private var isShowingImage: Bool = false
+    @State private var isShowingData: Bool = false
     
     private let suggesitonLimit: Int = 10
     private let imageLimit: Int = 20
@@ -117,11 +120,42 @@ struct DetailBookmarkView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridSpacing), count: itemsPerRow), spacing: gridSpacing) {
                     ForEach(currentPosts) { post in
-                        PostView(post: post)
+                        PostView(post: post, isShowingTag: $isShowingData, currentPost: $currentImage)
+                            .onTapGesture {
+                                 currentImage = post
+                                 isShowingImage = true
+                             }
                     }
                 }
                 .padding(10)
             }
+            .overlay(
+                ZStack {
+                    if isShowingImage, let currentImage = currentImage {
+                        Color.overlayColor
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                isShowingImage = false
+                            }
+                        VStack {
+                            currentImage.getFile()
+                                .padding(30)
+                        }
+                    } else {
+                        if isShowingData, let currentImage = currentImage {
+                            Color.overlayColor
+                                .ignoresSafeArea()
+                                .onTapGesture {
+                                    isShowingData = false
+                                }
+                            VStack {
+                                Text(currentImage.tags)
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            )
         }
     }
 }

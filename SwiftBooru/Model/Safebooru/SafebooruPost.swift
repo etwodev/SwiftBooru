@@ -12,7 +12,7 @@ struct SafebooruPost: Codable {
     let hash: String
     let fileHeight: Int
     let pid: Int
-    let image: String
+    let imagepath: String
     let change: Int
     let owner: String
     let parentID: Int
@@ -29,7 +29,7 @@ struct SafebooruPost: Codable {
         case hash = "hash"
         case fileHeight = "height"
         case pid = "id"
-        case image = "image"
+        case imagepath = "image"
         case change = "change"
         case owner = "owner"
         case parentID = "parent_id"
@@ -51,6 +51,7 @@ extension SafebooruPost: PostFormat, Hashable {
     var width: Int { return fileWidth }
     var rating: Rating { return post_rating }
     var id: String { return hash + String(pid) }
+    var image: String { return imagepath }
 }
 
 typealias SafebooruPosts = [SafebooruPost]

@@ -7,17 +7,24 @@
 
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
+import AppKit
 
 struct PostView: View {
+    @Binding var isShowingTag: Bool
+    @Binding var currentPost: BooruPost?
     @State private var isBookmarked: Bool
+    @State private var showSavePanel: Bool = false
     @State private var animationRate: CGFloat = 0
     let post: BooruPost
     
     
     
-    init(post: BooruPost) {
+    init(post: BooruPost, isShowingTag: Binding<Bool>, currentPost: Binding<BooruPost?>) {
         self.isBookmarked = BookmarkManager(identifier: "Bookmarks").isBookmarked(post: post)
         self.post = post
+        self._currentPost = currentPost
+        self._isShowingTag = isShowingTag
     }
     
     var body: some View {
@@ -31,42 +38,65 @@ struct PostView: View {
                     .background(Color.highlightColor)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                    .contentShape(Rectangle())
                     .padding(3)
-                    .onTapGesture(count: 2) {
-                        animationRate = 1
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            animationRate = 0
+
+                VStack {
+                    Menu {
+                        Button("Add to Bookmarks") {
+                            if BookmarkManager(identifier: "Bookmarks").toggleBookmark(post: post) {
+                                isBookmarked = BookmarkManager(identifier: "Bookmarks").isBookmarked(post: post)
+                            } else {
+                                print("Post has been successfully favourited at : \(post.id)")
+                            }
                         }
-                        if BookmarkManager(identifier: "Bookmarks").toggleBookmark(post: post) {
-                            isBookmarked = BookmarkManager(identifier: "Bookmarks").isBookmarked(post: post)
-                        } else {
-                            print("Failure to toggle post!")
+                        Button("Show Details...") {
+                            isShowingTag = true
+                            currentPost = post
                         }
+                        Divider()
+                        Button("Save Image As...") {
+                            let url = URL(string: post.file)
+                            let savePanel = NSSavePanel()
+                            savePanel.allowedContentTypes = [UTType.video, UTType.movie, UTType.image, UTType.gif]
+                            savePanel.canCreateDirectories = true
+                            savePanel.isExtensionHidden = false
+                            savePanel.allowsOtherFileTypes = false
+                            savePanel.title = "Save File"
+                            savePanel.prompt = "Save"
+                            savePanel.nameFieldLabel = "File name:"
+                            savePanel.nameFieldStringValue = post.image
+                            
+                            // Present the save panel as a modal window.
+                            savePanel.begin { response in
+                                if response == .OK {
+                                    FileDownloader.loadFileAsync(url: url!, saveURL: savePanel.url!) { (url, error) in
+                                        print("File has been downloaded to : \(url!)")
+                                    }
+                                }
+                            }
+                        }
+                        Button("Copy Image URL") {
+                            let board = NSPasteboard.general
+                            board.clearContents()
+                            board.writeObjects([post.file as NSString])
+                        }
+                    } label: {
                     }
-                    .overlay() {
-                        Image(systemName: "heart.fill")
-                            .font(.system(size: 60))
-                            .foregroundColor(.red)
-                            .opacity(animationRate)
-                            .animation(Animation.spring(), value: animationRate)
-                        
-                    }
-                
-                // Other on-image settings
-                
+                    .menuStyle(BorderlessButtonMenuStyle())
+                    .frame(width: 10, height: 10)
+                    .padding(5)
+                    .background(Color.accentColor.opacity(0.75))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .padding(3)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             }
-            Spacer()
-            
-            // Below text here
-            
         }
         .frame(minWidth: 0, maxWidth: .infinity)
         .frame(height: 200)
         .padding(10)
         .background(Color.selectionColor)
         .clipShape(RoundedRectangle(cornerRadius: 10))
+
     }
 }
-
-
