@@ -90,11 +90,29 @@ struct DetailBookmarkView: View {
     @State private var currentImage: BooruPost? = nil
     @State private var isShowingImage: Bool = false
     @State private var isShowingData: Bool = false
+    @State private var currentPage = 1
+    @State private var isShowingImages: Bool = false
     
     private let suggesitonLimit: Int = 10
-    private let imageLimit: Int = 20
+    private let imageLimit: Int = 19
     private let itemsPerRow: Int = 4
     private let gridSpacing: CGFloat = 10
+    
+    func getPosts() -> [BooruPost] {
+        var trueCurrentPosts: [BooruPost] = []
+        for (i, post) in currentPosts.enumerated() {
+            if (currentPage*imageLimit) < i {
+                return trueCurrentPosts
+            } else {
+                trueCurrentPosts.append(post)
+            }
+        }
+        return trueCurrentPosts
+    }
+    
+    func addPost() {
+        currentPage += 1
+    }
     
     var body: some View {
         if currentPosts.isEmpty {
@@ -117,17 +135,34 @@ struct DetailBookmarkView: View {
                 }
             }
         } else {
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridSpacing), count: itemsPerRow), spacing: gridSpacing) {
-                    ForEach(currentPosts) { post in
-                        PostView(post: post, isShowingTag: $isShowingData, currentPost: $currentImage)
-                            .onTapGesture {
-                                 currentImage = post
-                                 isShowingImage = true
-                             }
+            ZStack {
+                ScrollView {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridSpacing), count: itemsPerRow), spacing: gridSpacing) {
+                        ForEach(getPosts()) { post in
+                            PostView(post: post, isShowingTag: $isShowingData, currentPost: $currentImage)
+                                .onTapGesture {
+                                     currentImage = post
+                                     isShowingImage = true
+                                 }
+                        }
+                        .onAppear() {
+                            isShowingImages = true
+                        }
+                        .onDisappear() {
+                            isShowingImages = false
+                        }
                     }
+                    .padding(10)
                 }
-                .padding(10)
+                .onChange(of: isShowingImages) { isState in
+                    currentPage = 1
+                }
+                
+                VStack {
+                    Spacer()
+                    Clicker(info: "Load More...", function: addPost)
+                    .padding(.bottom, 15)
+                }
             }
             .overlay(
                 ZStack {
@@ -148,8 +183,64 @@ struct DetailBookmarkView: View {
                                 .onTapGesture {
                                     isShowingData = false
                                 }
-                            VStack {
-                                Text(currentImage.tags)
+                            HStack {
+                                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: CGFloat(currentImage.getTags().count / 6)), count: 6), spacing: 3) {
+                                    ForEach(currentImage.getTags(), id: \.self) { tag in
+                                        Text(tag)
+                                            .foregroundColor(.secondary)
+                                            .padding(4)
+                                            .background(Color.highlightColor.opacity(0.75))
+                                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                                            .padding(5)
+                                    }
+                                }
+                                .background(Color.backgroundColor)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .padding(.horizontal, 40)
+                                .shadow(radius: 2)
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Image: \(currentImage.image)")
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                    Text("File URL: \(currentImage.file)")
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                    Text("ID: \(currentImage.id)")
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                    Text("Type: \'\(currentImage.getType().description)\'")
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                    Text("Preview URL: \(currentImage.preview)")
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                    Text("Rating: \(currentImage.rating.description)")
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                }
+                                .background(Color.backgroundColor)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .padding(.horizontal, 40)
+                                .shadow(radius: 2)
                             }
                         }
                     }

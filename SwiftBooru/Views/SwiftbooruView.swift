@@ -18,27 +18,31 @@ struct SwiftbooruAppController: App {
                 name: "Swiftbooru",
                 description: "To get started, browse images in the discovery tab.",
                 items: [
-                    "house": AnyView(Text("Test A")),
+//                    "house": AnyView(Text("Test A")),
                     "heart": AnyView(BooksmarksView()),
                     "magnifyingglass": AnyView(SearchView())
-                ])
-                .environment(\.urlImageService, URLImageService(fileStore: nil, inMemoryStore: URLImageInMemoryStore()))
+                ],
+                defaultView: "magnifyingglass"
+            )
+            .environment(\.urlImageService, URLImageService(fileStore: nil, inMemoryStore: URLImageInMemoryStore()))
+            
         }
     }
     
 }
 
 struct SwiftbooruCanvasView: View {
-    @State var selectedIcon: String = ""
+    @State var selectedIcon: String
     @State var showPopup: Bool = false
     let viewSwitch: [String:AnyView]
     private let projectName: String
     private let projectDesc: String
     
-    init(name: String, description: String, items: [String:AnyView]) {
+    init(name: String, description: String, items: [String:AnyView], defaultView: String) {
         self.viewSwitch = items
         self.projectName = name
         self.projectDesc = description
+        self.selectedIcon = defaultView
     }
     
     var body: some View {

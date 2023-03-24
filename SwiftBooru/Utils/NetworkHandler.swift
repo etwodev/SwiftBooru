@@ -1,3 +1,10 @@
+//
+//  NetworkHandler.swift
+//  SwiftBooru
+//
+//  Created by Ethan Woods on 18/03/2023.
+//
+
 import Foundation
 
 func fetchJSON<T: Decodable>(url: URL, completion: @escaping (Result<T, Error>) -> Void) {

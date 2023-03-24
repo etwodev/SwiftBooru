@@ -1,3 +1,10 @@
+//
+//  TableManager.swift
+//  SwiftBooru
+//
+//  Created by Ethan Woods on 19/03/2023.
+//
+
 import Foundation
 
 class DictionaryFileManager<T: Codable & Identifiable> {

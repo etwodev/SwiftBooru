@@ -94,23 +94,67 @@ struct SearchView: View {
         }
     }
     
-    var body: some View {
-        ScrollView {
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridSpacing), count: itemsPerRow), spacing: gridSpacing) {
-                ForEach(searchResult) { result in
-                    PostView(post: result, isShowingTag: $isShowingData, currentPost: $currentImage)
-                        .onTapGesture {
-                             currentImage = result
-                             isShowingImage = true
-                         }
-                }
+    func getSearch() {
+        currentPage += 1
+        currentSearch = currentTokens.map { $0.id }.joined(separator: " ")
+        if isNSFWEnabled {
+            if let url = Swiftbooru.getURL(kind: .imagesearchGelbooru, term: currentSearch, limit: String(imageLimit), page: String(currentPage)) {
+                fetchJSON(url: url, completion: { (result: Result<GelbooruSearch, Error>) in
+                    switch result {
+                    case .success(let posts):
+                        for post in posts.post {
+                            searchResult.append(BooruPost(post: post))
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                })
             }
-            .padding(10)
+        } else {
+            if let url = Swiftbooru.getURL(kind: .imagesearchSafebooru, term: currentSearch, limit: String(imageLimit), page: String(currentPage)) {
+                fetchJSON(url: url, completion: { (result: Result<SafebooruPosts, Error>) in
+                    switch result {
+                    case .success(let posts):
+                        for post in posts {
+                            searchResult.append(BooruPost(post: post))
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                })
+            }
+        }
+    }
+    
+    var body: some View {
+        ZStack {
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: gridSpacing), count: itemsPerRow), spacing: gridSpacing) {
+                    ForEach(searchResult) { result in
+                        PostView(post: result, isShowingTag: $isShowingData, currentPost: $currentImage)
+                            .onTapGesture {
+                                 currentImage = result
+                                 isShowingImage = true
+                             }
+                    }
+                }
+                .padding(10)
+            }
+            
+            VStack {
+                Spacer()
+                Clicker(info: "Load More...", function: getSearch)
+                .padding(.bottom, 15)
+            }
         }
         .onAppear {
             if let searchCacheData: [BooruPost] = CacheManager.shared.getObject(forKey: "searchData"), let searchCacheParameters: String = CacheManager.shared.getObject(forKey: "searchParameters") {
                 searchResult = searchCacheData
                 currentSearch = searchCacheParameters
+            }
+            if searchResult.isEmpty {
+                submitSearch()
+                currentPage = 0
             }
         }
         .onDisappear {
@@ -151,14 +195,71 @@ struct SearchView: View {
                             .onTapGesture {
                                 isShowingData = false
                             }
-                        VStack {
-                            Text(currentImage.tags)
+                        HStack {
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: CGFloat(currentImage.getTags().count / 6)), count: 6), spacing: 3) {
+                                ForEach(currentImage.getTags(), id: \.self) { tag in
+                                    Text(tag)
+                                        .foregroundColor(.secondary)
+                                        .padding(4)
+                                        .background(Color.highlightColor.opacity(0.75))
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                        .padding(5)
+                                }
+                            }
+                            .background(Color.backgroundColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(.horizontal, 40)
+                            .shadow(radius: 2)
+                            
+                            VStack(alignment: .leading) {
+                                Text("Image: \(currentImage.image)")
+                                    .foregroundColor(.secondary)
+                                    .padding(4)
+                                    .background(Color.highlightColor.opacity(0.75))
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(5)
+                                Text("File URL: \(currentImage.file)")
+                                    .foregroundColor(.secondary)
+                                    .padding(4)
+                                    .background(Color.highlightColor.opacity(0.75))
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(5)
+                                Text("ID: \(currentImage.id)")
+                                    .foregroundColor(.secondary)
+                                    .padding(4)
+                                    .background(Color.highlightColor.opacity(0.75))
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(5)
+                                Text("Type: \'\(currentImage.getType().description)\'")
+                                    .foregroundColor(.secondary)
+                                    .padding(4)
+                                    .background(Color.highlightColor.opacity(0.75))
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(5)
+                                Text("Preview URL: \(currentImage.preview)")
+                                    .foregroundColor(.secondary)
+                                    .padding(4)
+                                    .background(Color.highlightColor.opacity(0.75))
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(5)
+                                Text("Rating: \(currentImage.rating.description)")
+                                    .foregroundColor(.secondary)
+                                    .padding(4)
+                                    .background(Color.highlightColor.opacity(0.75))
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    .padding(5)
+                            }
+                            .background(Color.backgroundColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(.horizontal, 40)
+                            .shadow(radius: 2)
                         }
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         )
+        
     }
 }
 
@@ -177,6 +278,32 @@ struct Toggler: View {
                 .foregroundColor(isEnabled ? .white : colorScheme == .dark ? .white : .black)
                 .padding(5)
                 .background(isEnabled ? .accentColor : colorScheme == .dark ? Color.white.opacity(0.1) : Color.gray.opacity(0.2))
+                .cornerRadius(5)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct Clicker: View {
+    let info: String
+    let function: () -> Void
+    @State private var isEnabled: Bool = false
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        Button(action: {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                isEnabled = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isEnabled = false
+                    function()
+                }
+            }
+        }) {
+            Text(info)
+                .foregroundColor(isEnabled ? .white : colorScheme == .dark ? .white : .black)
+                .padding(5)
+                .background(isEnabled ? .accentColor : colorScheme == .dark ? Color.white.opacity(0.4) : Color.gray.opacity(0.6))
                 .cornerRadius(5)
         }
         .buttonStyle(PlainButtonStyle())

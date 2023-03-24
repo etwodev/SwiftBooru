@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4447ADCB29CDA6EB00686AF3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4447ADCA29CDA6EB00686AF3 /* HomeView.swift */; };
 		445EA7BE29C27F5200667D13 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7BD29C27F5200667D13 /* CacheManager.swift */; };
 		445EA7C029C27F5B00667D13 /* TableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7BF29C27F5B00667D13 /* TableManager.swift */; };
 		445EA7C329C27FE200667D13 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445EA7C229C27FE200667D13 /* NetworkHandler.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4447ADCA29CDA6EB00686AF3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		445EA7BD29C27F5200667D13 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		445EA7BF29C27F5B00667D13 /* TableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableManager.swift; sourceTree = "<group>"; };
 		445EA7C229C27FE200667D13 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				446B2D2C29C7E37300850070 /* SwiftbooruView.swift */,
 				44F0538C29C9CDD400A53E91 /* SearchView.swift */,
 				44BDDD7729CB04AD005955FF /* ImageView.swift */,
+				4447ADCA29CDA6EB00686AF3 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				44F0538D29C9CDD400A53E91 /* SearchView.swift in Sources */,
 				445EA7E429C310D400667D13 /* SafebooruPost.swift in Sources */,
 				446B2D2F29C7E78E00850070 /* Extensions.swift in Sources */,
+				4447ADCB29CDA6EB00686AF3 /* HomeView.swift in Sources */,
 				445EA7C329C27FE200667D13 /* NetworkHandler.swift in Sources */,
 				445EA7E829C310F800667D13 /* GelbooruTag.swift in Sources */,
 			);

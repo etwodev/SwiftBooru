@@ -16,12 +16,30 @@ enum Rating: String, Codable {
     case safe = "safe"
     case questionable = "questionable"
     case sensitive = "sensitive"
+    
+    var description : String {
+      switch self {
+      case .explicit: return "explicit"
+      case .general: return "general"
+      case .safe: return "safe"
+      case .questionable: return "questionable"
+      case .sensitive: return "sensitive"
+      }
+    }
 }
 
 enum ImageType: String, Codable {
     case unknown = "unknown"
     case image = "image"
     case video = "video"
+    
+    var description : String {
+      switch self {
+      case .unknown: return "unknown"
+      case .image: return "image"
+      case .video: return "video"
+      }
+    }
 }
 
 protocol PostFormat: Codable, Identifiable {

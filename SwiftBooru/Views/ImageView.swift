@@ -54,7 +54,7 @@ struct PostView: View {
                             currentPost = post
                         }
                         Divider()
-                        Button("Save Image As...") {
+                        Button("Save File As...") {
                             let url = URL(string: post.file)
                             let savePanel = NSSavePanel()
                             savePanel.allowedContentTypes = [UTType.video, UTType.movie, UTType.image, UTType.gif]
@@ -82,6 +82,7 @@ struct PostView: View {
                         }
                     } label: {
                     }
+                    .contentShape(Rectangle())
                     .menuStyle(BorderlessButtonMenuStyle())
                     .frame(width: 10, height: 10)
                     .padding(5)
